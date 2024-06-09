@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AuthContext } from "../app/providers/auth";
 
 export default function Header() {
-  const { setAuth } = useContext(AuthContext);
+  const { onLogout } = useContext(AuthContext);
   return (
     <header>
       <nav style={{display: "flex", columnGap: 20, margin: 30}}>
@@ -13,7 +13,7 @@ export default function Header() {
         <NavLink to="profile">Profile</NavLink>
       </nav>
 
-      <button onClick={() => setAuth(false)}>Log Out</button>
+      <button onClick={onLogout}>Log Out</button>
     </header>
   );
 }
