@@ -6,7 +6,7 @@ import { AuthContext } from "./providers/auth";
 export default function PrivateRote({ children }) {
   const { auth } = useContext(AuthContext);
 
-  if (!auth) return <Navigate to="login" replace />;
+  if (!auth) return <Navigate to="/login" replace />;
 
   return children;
 }
