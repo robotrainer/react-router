@@ -4,18 +4,27 @@ const defaultAuthContext = {
   auth: false,
   onLogin: () => {},
   onLogout: () => {},
+  setUser: () => {},
 }
 
 export const AuthContext = createContext(defaultAuthContext);
 
 export default function AuthProvider({ children }) {
   const [auth, setAuth] = useState(false);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     if(localStorage.getItem("auth")) {
       setAuth(true);
     }
   }, []);
+
+
+  // useEffect(() => {
+  //   if(Object.keys(user).length) {
+  //     onLogin();
+  //   }
+  // }, [user])
 
   const onLogin = () => {
     setAuth(true);
@@ -29,7 +38,7 @@ export default function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ auth, onLogin, onLogout}}>
+    <AuthContext.Provider value={{ auth, onLogin, onLogout, setUser}}>
       {children}
     </AuthContext.Provider>
   );

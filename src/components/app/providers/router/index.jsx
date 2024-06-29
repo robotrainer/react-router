@@ -15,9 +15,10 @@ import Post from "../../../pages/Post";
 import PrivateRote from "../../PrivateRoute";
 import ErrorPage from "../../../pages/ErrorPage";
 
-import { postLoader, postsLoader } from "../../../../api";
+import { postLoader, postsLoader } from "../../../../api/loaders";
+import { loginAction } from "../../../../api/actions";
 
-const routes = [
+const routes = (authContext) => [
   {
     path: "/", // http://localhost:3000/
     element: <Layout />,
@@ -65,6 +66,7 @@ const routes = [
   },
   {
     path: "login",
+    action: loginAction(authContext),
     element: <Login />,
   },
   {
@@ -73,6 +75,12 @@ const routes = [
   },
 ];
 
-export const router = process.env.production
-  ? createBrowserRouter(routes)
-  : createHashRouter(routes);
+
+
+export const router = (authContext) => {
+  const arrayRoutes = routes(authContext);
+
+  return process.env.production
+    ? createBrowserRouter(arrayRoutes)
+    : createHashRouter(arrayRoutes);
+};
